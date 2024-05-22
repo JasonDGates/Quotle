@@ -1,4 +1,5 @@
 import MenuIcon from "@mui/icons-material/Menu";
+import TextField from "@mui/material/TextField";
 
 export default function App() {
   const dummyData = [
@@ -19,9 +20,24 @@ export default function App() {
       id="main-container"
       className="flex flex-col border-8 h-screen max-w-[480px]"
     >
-      <div id="header" className="flex items-center space-x-2 p-4">
+      <div id="header" className="flex items-center space-x-2 p-4 h-[100px]">
         <MenuIcon />
-        <div className="text-3xl font-bold">Quotle</div>
+        <span className="text-3xl font-bold">Quotle</span>
+      </div>
+      <div id="movie-information" className="flex justify-between p-4">
+        <span>Year: </span>
+        <span>Rating: </span>
+      </div>
+      <div id="quote-section" className="p-4">
+        <div>Quote 1: </div>
+        <div>Quote 2: </div>
+        <div>Quote 3: </div>
+        <div>Quote 4: </div>
+        <div>Quote 5: </div>
+        <div>Quote 6: </div>
+      </div>
+      <div id="search-box" className="p-4">
+        <TextField fullWidth label="Search" />
       </div>
     </div>
   );
