@@ -1,7 +1,10 @@
 import MenuIcon from "@mui/icons-material/Menu";
-import TextField from "@mui/material/TextField";
+import { useState } from "react";
+import MovieSearch from "./components/MovieSearch.jsx";
 
 export default function App() {
+  const [quotesToShow, setQuotesToShow] = useState(0);
+  const [selectedMovie, setSelectedMovie] = useState(null);
   const dummyData = [
     {
       id: 1,
@@ -18,7 +21,7 @@ export default function App() {
   return (
     <div
       id="main-container"
-      className="flex flex-col border-8 h-screen max-w-[480px]"
+      className="border-8 h-screen max-w-[480px]"
     >
       <div id="header" className="flex items-center space-x-2 p-4 h-[100px]">
         <MenuIcon />
@@ -28,17 +31,29 @@ export default function App() {
         <span>Year: </span>
         <span>Rating: </span>
       </div>
+      <button
+        onClick={() => setQuotesToShow(quotesToShow + 1)}
+        className="bg-blue-500 text-white p-2 rounded-md"
+      >
+        Get Quote
+      </button>
       <div id="quote-section" className="p-4">
-        <div>Quote 1: </div>
-        <div>Quote 2: </div>
-        <div>Quote 3: </div>
-        <div>Quote 4: </div>
-        <div>Quote 5: </div>
-        <div>Quote 6: </div>
+        <div>Quote 1: {quotesToShow > 0 && dummyData[0].quote1}</div>
+        <div>Quote 2: {quotesToShow > 1 && dummyData[0].quote2}</div>
+        <div>Quote 3: {quotesToShow > 2 && dummyData[0].quote3}</div>
+        <div>Quote 4: {quotesToShow > 3 && dummyData[0].quote4}</div>
+        <div>Quote 5: {quotesToShow > 4 && dummyData[0].quote5}</div>
+        <div>Quote 6: {quotesToShow > 5 && dummyData[0].quote6}</div>
       </div>
       <div id="search-box" className="p-4">
-        <TextField fullWidth label="Search" />
+      <MovieSearch 
+          onMovieSelect={(movie) => {
+            setSelectedMovie(movie);
+            // Add any other logic you need when a movie is selected
+          }} 
+        />
       </div>
+      <button className="bg-blue-500 text-white p-2 rounded-md">Guess</button>
     </div>
   );
 }
