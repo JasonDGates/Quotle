@@ -5,11 +5,12 @@ export default function MovieSearch({ onMovieSelect }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [exactMatch, setExactMatch] = useState(false);
 
   // Debounced search function - waits 500ms after user stops typing before making API call
   useEffect(() => {
     const searchMovies = async () => {
-      if (searchTerm.length < 3) {
+      if (exactMatch || searchTerm.length < 3) {
         setSearchResults([]);
         return;
       }
@@ -35,7 +36,7 @@ export default function MovieSearch({ onMovieSelect }) {
 
     const timeoutId = setTimeout(searchMovies, 500);
     return () => clearTimeout(timeoutId);
-  }, [searchTerm]);
+  }, [searchTerm, exactMatch]);
 
   const handleMovieSelect = (movie) => {
     setSearchTerm(movie.Title);
@@ -49,7 +50,10 @@ export default function MovieSearch({ onMovieSelect }) {
         fullWidth 
         label="Search" 
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={(e) => {
+          setSearchTerm(e.target.value);
+          setExactMatch(false);
+        }}
       />
       
       {searchResults.length > 0 && (
