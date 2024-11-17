@@ -4,11 +4,13 @@ import { useState } from "react";
 import MovieSearch from "./components/MovieSearch.jsx";
 import HeroSection from "./components/HeroSection.jsx";
 import QuoteBar from "./components/QuoteBar.jsx";
+import WinnerModal from "./components/WinnerModal.jsx";
+
 export default function App() {
   const [quotesToShow, setQuotesToShow] = useState(0);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const dummyData = {
-    id: 1,
+    id: "tt0071853",
     title: "Monty Python and the Holy Grail",
     quotes: [
       "A moose once bit my sister",
@@ -19,33 +21,40 @@ export default function App() {
       "Your mother was a hamster and your father smelt of elderberries!",
     ]
   }
+  const [showWinnerModal, setShowWinnerModal] = useState(false);
+
+  const handleWinnerModal = () => {
+    setShowWinnerModal(true);
+  }
   return (
     // Main container
     <div
       id="main-container"
-      className="h-screen w-screen"
+      className="h-screen w-screen bg-[#292929] flex flex-col items-center"
     >
       {/* Header */}
-      <div id="header" className="flex p-4 justify-between bg-[#494747] text-white">
-        <EqualizerIcon />
-        <MenuIcon />
+      <div id="header" className="flex p-4 justify-between text-white w-full">
+        <EqualizerIcon fontSize="large"/>
+        <MenuIcon fontSize="large"/>
       </div>
-      <div id="game-container" className="flex flex-col bg-[#494747]">
+      <div id="game-container" className="flex flex-col items-center w-full max-w-[600px]">
         <HeroSection />
-        <div id="quote-section" className="p-4">
+        <div id="quote-section" className="p-4 w-full max-w-[600px] flex flex-col">
           {dummyData.quotes.map((quote) => (
             <QuoteBar key={quote.id} text={quote} />
           ))}
-        </div>
-        <div id="search-box" className="p-4">
-        <MovieSearch 
+          <MovieSearch 
             onMovieSelect={(movie) => {
               setSelectedMovie(movie);
               // Add any other logic you need when a movie is selected
             }} 
           />
+        <button 
+          onClick={() => selectedMovie.imdbID === dummyData.id && handleWinnerModal()} 
+          className="bg-[#00bf63] text-white p-2 rounded-md w-full mt-4"
+        >Guess</button>
         </div>
-        <button className="bg-blue-500 text-white p-2 rounded-md">Guess</button>
+        {showWinnerModal && <WinnerModal onClose={() => setShowWinnerModal(false)} />}
       </div>
     </div>
   );

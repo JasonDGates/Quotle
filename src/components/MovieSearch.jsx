@@ -45,36 +45,40 @@ export default function MovieSearch({ onMovieSelect }) {
   };
 
   return (
-    <div className="relative">
-      <TextField 
-        fullWidth 
-        label="Search" 
-        value={searchTerm}
-        onChange={(e) => {
-          setSearchTerm(e.target.value);
-          setExactMatch(false);
-        }}
-      />
-      
-      {searchResults.length > 0 && (
-        <div className="absolute left-0 right-0 bg-white shadow-lg rounded-md mt-1 z-10">
-          {searchResults.map((movie) => (
-            <div 
-              key={movie.imdbID}
-              className="p-2 hover:bg-gray-100 cursor-pointer"
-              onClick={() => handleMovieSelect(movie)}
-            >
-              {movie.Title} ({movie.Year})
-            </div>
-          ))}
-        </div>
-      )}
-      
-      {isLoading && (
-        <div className="absolute left-0 right-0 bg-white shadow-lg rounded-md mt-1 p-2">
-          Loading...
-        </div>
-      )}
+    <div className="bg-[#d9d9d9] rounded-md w-full mt-4">
+      <div className="relative">
+        <TextField 
+          fullWidth 
+          autoComplete="off"
+          label="" 
+          placeholder="Search for a movie"
+          value={searchTerm}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            setExactMatch(false);
+          }}
+        />
+        
+        {searchResults.length > 0 && (
+          <div className="absolute w-full bg-white shadow-lg rounded-md mt-1 z-10 max-h-[calc(100vh-100px)] overflow-y-auto">
+            {searchResults.map((movie) => (
+              <div 
+                key={movie.imdbID}
+                className="p-2 hover:bg-gray-100 cursor-pointer"
+                onClick={() => handleMovieSelect(movie)}
+              >
+                {movie.Title} ({movie.Year})
+              </div>
+            ))}
+          </div>
+        )}
+        
+        {isLoading && (
+          <div className="absolute w-full bg-white shadow-lg rounded-md mt-1 p-2">
+            Loading...
+          </div>
+        )}
+      </div>
     </div>
   );
 } 
