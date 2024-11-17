@@ -18,7 +18,7 @@ export default function MovieSearch({ onMovieSelect }) {
       setIsLoading(true);
       try {
         const response = await fetch(
-          `http://www.omdbapi.com/?apikey=8abd923d&s=${searchTerm}&type=movie`
+          `https://www.omdbapi.com/?apikey=8abd923d&s=${searchTerm}&type=movie`
         );
         const data = await response.json();
         
