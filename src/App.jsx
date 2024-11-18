@@ -10,15 +10,15 @@ export default function App() {
   const [quotesToShow, setQuotesToShow] = useState(0);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const dummyData = {
-    id: "tt0071853",
-    title: "Monty Python and the Holy Grail",
+    id: "tt0838283",
+    title: "Step Brothers",
     quotes: [
-      "A moose once bit my sister",
-      "Its just a flesh wound!",
-      "We are the knights who say Ni!",
-      "What is the air speed velocity of an uladen swallow?",
-      "Run away!",
-      "Your mother was a hamster and your father smelt of elderberries!",
+      "Why are you so sweaty? I was watching cops.",
+      "This house is a fucking prison! On Planet Bullshit! In the galaxy of this sucks camel dicks!",
+      "That's cute. I remember by first beer.",
+      "Did we just become best friends? YUP!",
+      "Hey Derek you know what's good for shoulder pain? If you lick my butthole.",
+      "Boats and Hoes!",
     ]
   }
   const [showWinnerModal, setShowWinnerModal] = useState(false);
