@@ -37,7 +37,7 @@ export default function App() {
         <EqualizerIcon fontSize="large"/>
         <MenuIcon fontSize="large"/>
       </div>
-      <div id="game-container" className="flex flex-col items-center w-full max-w-[600px]">
+      <div id="game-container" className="flex flex-col items-center w-full max-w-[600px] p-4">
         <HeroSection />
         <div id="quote-section" className="p-4 w-full max-w-[600px] flex flex-col">
           {dummyData.quotes.map((quote) => (

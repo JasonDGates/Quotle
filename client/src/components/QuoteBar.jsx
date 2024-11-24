@@ -7,7 +7,7 @@ const QuoteBar = ({ text }) => {
     <div
       onClick={() => setIsExpanded(!isExpanded)}
       className={` my-2
-        w-full min-h-6 pl-4 cursor-pointer rounded-xl
+        w-full min-h-6 pl-2 pr-2 cursor-pointer rounded-xl
         ${isExpanded 
           ? 'bg-[#737373]' 
           : 'bg-[#0cc0df]'
