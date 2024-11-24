@@ -1,5 +1,5 @@
 const validateGetQuote = (req, res, next) => {
-    const { date } = req.body;
+    const { date } = req.params;
     if (!date) {
         return res.status(400).json({ message: 'Date is required' });
     }
