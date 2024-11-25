@@ -1,8 +1,16 @@
 import express from 'express';
 import connectDB from './config/dbConnection.js';
 import "dotenv/config";
+import routes from './routes/index.js';
 
 const app = express();
+
+app.use((req, res, next) => {
+    console.log('Hit API')
+    next();
+})
+
+app.use(routes);
 
 const startServer = async () => {
     try {
