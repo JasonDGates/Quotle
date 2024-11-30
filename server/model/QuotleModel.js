@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const QuoteSchema = new mongoose.Schema({
-    date: {type: String, required: true},
+    date: {type: String, required: true, unique: true},
     id: {type: Number, required: true},
     imdbID: {type: String, required: true},
     title: {type: String, required: true},
