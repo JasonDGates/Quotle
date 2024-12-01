@@ -1,6 +1,6 @@
 import MenuIcon from "@mui/icons-material/Menu";
 import EqualizerIcon from '@mui/icons-material/Equalizer';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MovieSearch from "./components/MovieSearch.jsx";
 import HeroSection from "./components/HeroSection.jsx";
 import QuoteBar from "./components/QuoteBar.jsx";
@@ -22,6 +22,21 @@ export default function App() {
     ]
   }
   const [showWinnerModal, setShowWinnerModal] = useState(false);
+
+  const todaysDate = () => {
+    const now = new Date();
+    const dateOptions = {month: '2-digit', day: '2-digit', year: 'numeric'}
+    return new Intl.DateTimeFormat('en-US', dateOptions).format(now)
+  }
+  const gameData = localStorage.getItem(todaysDate())
+
+  useEffect(() => {
+    if (!gameData) {
+      localStorage.setItem(todaysDate(), JSON.stringify({numberOfQuotes: 0, correctGuess: false, numberOfGuesses: 0}))
+    } else {
+      localStorage.setItem(todaysDate(), gameData);
+    }
+  }, [])
 
   const handleWinnerModal = () => {
     setShowWinnerModal(true);
