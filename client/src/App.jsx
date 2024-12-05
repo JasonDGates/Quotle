@@ -7,8 +7,9 @@ import QuoteBar from "./components/QuoteBar.jsx";
 import WinnerModal from "./components/WinnerModal.jsx";
 
 export default function App() {
-  const [quotesToShow, setQuotesToShow] = useState(0);
+  const [quotesToShow, setQuotesToShow] = useState(-1);
   const [selectedMovie, setSelectedMovie] = useState(null);
+
   const dummyData = {
     id: "tt0838283",
     title: "Step Brothers",
@@ -29,6 +30,12 @@ export default function App() {
     return new Intl.DateTimeFormat('en-US', dateOptions).format(now)
   }
   const gameData = localStorage.getItem(todaysDate())
+
+  const handleQuoteBarOnClick = (index) => {
+    if (index === quotesToShow + 1) {
+      setQuotesToShow(index);
+    }
+  }
 
   useEffect(() => {
     if (!gameData) {
@@ -55,8 +62,8 @@ export default function App() {
       <div id="game-container" className="flex flex-col items-center w-full max-w-[600px] p-4">
         <HeroSection />
         <div id="quote-section" className="p-4 w-full max-w-[600px] flex flex-col">
-          {dummyData.quotes.map((quote) => (
-            <QuoteBar key={quote.id} text={quote} />
+          {dummyData.quotes.map((quote, index) => (
+            <QuoteBar key={quote.id} text={quote} isExpanded={quotesToShow >= index} onClick={() => handleQuoteBarOnClick(index)}/>
           ))}
           <MovieSearch 
             onMovieSelect={(movie) => {
