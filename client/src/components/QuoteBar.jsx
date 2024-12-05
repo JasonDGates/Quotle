@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 
-const QuoteBar = ({ text }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+const QuoteBar = ({ text, isExpanded, onClick }) => {
 
   return (
     <div
-      onClick={() => setIsExpanded(!isExpanded)}
+      onClick={onClick}
       className={` my-2
         w-full min-h-6 pl-2 pr-2 cursor-pointer rounded-xl
         ${isExpanded 
