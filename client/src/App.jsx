@@ -29,19 +29,22 @@ export default function App() {
     const dateOptions = {month: '2-digit', day: '2-digit', year: 'numeric'}
     return new Intl.DateTimeFormat('en-US', dateOptions).format(now)
   }
-  const gameData = localStorage.getItem(todaysDate())
+  const gameData = JSON.parse(localStorage.getItem(todaysDate()))
 
   const handleQuoteBarOnClick = (index) => {
+    console.log(quotesToShow)
     if (index === quotesToShow + 1) {
+      localStorage.setItem(todaysDate(), JSON.stringify({numberOfQuotes: index, correctGuess: false, numberOfGuesses: 0}))
       setQuotesToShow(index);
     }
   }
 
   useEffect(() => {
     if (!gameData) {
-      localStorage.setItem(todaysDate(), JSON.stringify({numberOfQuotes: 0, correctGuess: false, numberOfGuesses: 0}))
+      localStorage.setItem(todaysDate(), JSON.stringify({numberOfQuotes: -1, correctGuess: false, numberOfGuesses: 0}))
     } else {
-      localStorage.setItem(todaysDate(), gameData);
+      localStorage.setItem(todaysDate(), JSON.stringify(gameData));
+      setQuotesToShow(gameData.numberOfQuotes)
     }
   }, [])
 
