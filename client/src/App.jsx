@@ -12,6 +12,11 @@ export default function App() {
   const todaysDate = () => getTodaysDate();
 
   const gameData = JSON.parse(localStorage.getItem(todaysDate()))
+  if (!gameData) {
+    localStorage.setItem(todaysDate(), JSON.stringify({numberOfQuotes: -1, correctGuess: false, numberOfGuesses: 0}))
+  } else {
+    localStorage.setItem(todaysDate(), JSON.stringify(gameData));
+  }
   const [quotesToShow, setQuotesToShow] = useState(gameData.numberOfGuesses);
   const [selectedMovie, setSelectedMovie] = useState(null);
 
@@ -38,12 +43,9 @@ export default function App() {
   }
 
   useEffect(() => {
-    if (!gameData) {
-      localStorage.setItem(todaysDate(), JSON.stringify({numberOfQuotes: -1, correctGuess: false, numberOfGuesses: 0}))
-    } else {
-      localStorage.setItem(todaysDate(), JSON.stringify(gameData));
+
       setQuotesToShow(gameData.numberOfQuotes)
-    }
+    
   }, [])
 
   const handleWinnerModal = () => {
