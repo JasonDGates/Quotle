@@ -5,9 +5,14 @@ import MovieSearch from "./components/MovieSearch.jsx";
 import HeroSection from "./components/HeroSection.jsx";
 import QuoteBar from "./components/QuoteBar.jsx";
 import WinnerModal from "./components/WinnerModal.jsx";
+import getTodaysDate from "./helpers/getTodaysDate.js";
 
 export default function App() {
-  const [quotesToShow, setQuotesToShow] = useState(-1);
+
+  const todaysDate = () => getTodaysDate();
+
+  const gameData = JSON.parse(localStorage.getItem(todaysDate()))
+  const [quotesToShow, setQuotesToShow] = useState(gameData.numberOfGuesses);
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   const dummyData = {
@@ -23,13 +28,6 @@ export default function App() {
     ]
   }
   const [showWinnerModal, setShowWinnerModal] = useState(false);
-
-  const todaysDate = () => {
-    const now = new Date();
-    const dateOptions = {month: '2-digit', day: '2-digit', year: 'numeric'}
-    return new Intl.DateTimeFormat('en-US', dateOptions).format(now)
-  }
-  const gameData = JSON.parse(localStorage.getItem(todaysDate()))
 
   const handleQuoteBarOnClick = (index) => {
     console.log(quotesToShow)
