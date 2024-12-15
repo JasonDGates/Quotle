@@ -5,3 +5,5 @@ const setLocalStorage = (property, value, date) => {
 
     return data;
 }
+
+export default setLocalStorage;

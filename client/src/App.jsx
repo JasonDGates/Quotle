@@ -6,14 +6,17 @@ import HeroSection from "./components/HeroSection.jsx";
 import QuoteBar from "./components/QuoteBar.jsx";
 import WinnerModal from "./components/WinnerModal.jsx";
 import getTodaysDate from "./helpers/getTodaysDate.js";
+import setLocalStorage from "../src/helpers/setLocalStorage.js"
 
 export default function App() {
 
   const todaysDate = () => getTodaysDate();
 
+  const defaultData = {numberOfQuotes: -1, correctGuess: false, numberOfGuesses: 0}
+
   const gameData = JSON.parse(localStorage.getItem(todaysDate()))
   if (!gameData) {
-    localStorage.setItem(todaysDate(), JSON.stringify({numberOfQuotes: -1, correctGuess: false, numberOfGuesses: 0}))
+    localStorage.setItem(todaysDate(), JSON.stringify(defaultData))
   } else {
     localStorage.setItem(todaysDate(), JSON.stringify(gameData));
   }
@@ -37,15 +40,13 @@ export default function App() {
   const handleQuoteBarOnClick = (index) => {
     console.log(quotesToShow)
     if (index === quotesToShow + 1) {
-      localStorage.setItem(todaysDate(), JSON.stringify({numberOfQuotes: index, correctGuess: false, numberOfGuesses: 0}))
+      setLocalStorage("numberOfQuotes", index, todaysDate());
       setQuotesToShow(index);
     }
   }
 
   useEffect(() => {
-
       setQuotesToShow(gameData.numberOfQuotes)
-    
   }, [])
 
   const handleWinnerModal = () => {
