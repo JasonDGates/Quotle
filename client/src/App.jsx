@@ -22,6 +22,7 @@ export default function App() {
   }
   const [quotesToShow, setQuotesToShow] = useState(gameData.numberOfGuesses);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [numberOfGuesses, setNumberOfGuesses] = useState(0);
 
   const dummyData = {
     id: "tt0838283",
@@ -52,6 +53,12 @@ export default function App() {
   const handleWinnerModal = () => {
     setShowWinnerModal(true);
   }
+
+  const handleGuessMovie = () => {
+    setNumberOfGuesses((prev) => prev + 1);
+    setLocalStorage(numberOfGuesses, gameData.numberOfGuesses + 1);
+    selectedMovie.imdbID === dummyData.id && handleWinnerModal()
+  }
   return (
     // Main container
     <div
@@ -76,8 +83,9 @@ export default function App() {
             }} 
           />
         <button 
-          onClick={() => selectedMovie.imdbID === dummyData.id && handleWinnerModal()} 
+          onClick={() => handleGuessMovie()} 
           className="bg-[#00bf63] text-white p-2 rounded-md w-full mt-4"
+          disabled={!selectedMovie}
         >Guess</button>
         </div>
         {showWinnerModal && <WinnerModal onClose={() => setShowWinnerModal(false)} />}
