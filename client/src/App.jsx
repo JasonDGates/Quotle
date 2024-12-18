@@ -7,6 +7,7 @@ import QuoteBar from "./components/QuoteBar.jsx";
 import WinnerModal from "./components/WinnerModal.jsx";
 import getTodaysDate from "./helpers/getTodaysDate.js";
 import setLocalStorage from "../src/helpers/setLocalStorage.js"
+import GuessesBar from "./components/GuessesBar.jsx";
 
 export default function App() {
 
@@ -22,7 +23,7 @@ export default function App() {
   }
   const [quotesToShow, setQuotesToShow] = useState(gameData.numberOfGuesses);
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const [numberOfGuesses, setNumberOfGuesses] = useState(0);
+  const [numberOfGuesses, setNumberOfGuesses] = useState(gameData.numberOfGuesses);
 
   const dummyData = {
     id: "tt0838283",
@@ -57,7 +58,9 @@ export default function App() {
   const handleGuessMovie = () => {
     setNumberOfGuesses((prev) => prev + 1);
     setLocalStorage('numberOfGuesses', gameData.numberOfGuesses + 1, todaysDate());
-    selectedMovie.imdbID === dummyData.id && handleWinnerModal()
+    if (selectedMovie.imdbID === dummyData.id)
+      handleWinnerModal();
+      setLocalStorage('correctGuess', true, todaysDate())
   }
   return (
     // Main container
@@ -77,6 +80,7 @@ export default function App() {
             <QuoteBar key={quote.id} text={quote} isExpanded={quotesToShow >= index} onClick={() => handleQuoteBarOnClick(index)}/>
           ))}
           <div className="text-white mt-6 mb-1">{6 - numberOfGuesses} more guesses....</div>
+          <GuessesBar guessCount={numberOfGuesses} />
           <MovieSearch 
             onMovieSelect={(movie) => {
               setSelectedMovie(movie);
