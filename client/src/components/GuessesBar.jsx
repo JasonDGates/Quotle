@@ -12,11 +12,11 @@ const GuessesBar = ({ guessCount }) => {
   }, [guessCount]);
 
   return (
-    <div className="flex w-full gap-1 mb-2">
+    <div className="flex w-full gap-2 mb-2">
       {bars.map((isRed, index) => (
         <div
           key={index}
-          className={`flex-1 h-3 rounded transition-colors duration-500 ease-in-out
+          className={`flex-1 h-3 rounded-lg transition-colors duration-500 ease-in-out
             ${isRed ? 'bg-red-500' : 'bg-green-500'}`}
         />
       ))}
