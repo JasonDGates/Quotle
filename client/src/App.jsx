@@ -56,7 +56,6 @@ export default function App() {
 
   const handleGuessMovie = () => {
     setNumberOfGuesses((prev) => prev + 1);
-    console.log(gameData.numberOfGuesses)
     setLocalStorage('numberOfGuesses', gameData.numberOfGuesses + 1, todaysDate());
     selectedMovie.imdbID === dummyData.id && handleWinnerModal()
   }
@@ -77,6 +76,7 @@ export default function App() {
           {dummyData.quotes.map((quote, index) => (
             <QuoteBar key={quote.id} text={quote} isExpanded={quotesToShow >= index} onClick={() => handleQuoteBarOnClick(index)}/>
           ))}
+          <div className="text-white mt-6 mb-1">{6 - numberOfGuesses} more guesses....</div>
           <MovieSearch 
             onMovieSelect={(movie) => {
               setSelectedMovie(movie);
