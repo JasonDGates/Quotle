@@ -56,7 +56,8 @@ export default function App() {
 
   const handleGuessMovie = () => {
     setNumberOfGuesses((prev) => prev + 1);
-    setLocalStorage(numberOfGuesses, gameData.numberOfGuesses + 1);
+    console.log(gameData.numberOfGuesses)
+    setLocalStorage('numberOfGuesses', gameData.numberOfGuesses + 1, todaysDate());
     selectedMovie.imdbID === dummyData.id && handleWinnerModal()
   }
   return (
