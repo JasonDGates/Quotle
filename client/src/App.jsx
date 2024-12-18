@@ -89,9 +89,9 @@ export default function App() {
           />
         <button 
           onClick={() => handleGuessMovie()} 
-          className="bg-[#00bf63] text-white p-2 rounded-md w-full mt-4"
+          className={`${!selectedMovie ? 'bg-gray-700' : 'bg-[#00bf63]'} text-white p-2 rounded-md w-full mt-4`}
           disabled={!selectedMovie}
-        >Guess</button>
+        >{!selectedMovie ? 'Select a Movie' : 'Guess!'}</button>
         </div>
         {showWinnerModal && <WinnerModal onClose={() => setShowWinnerModal(false)} />}
       </div>
