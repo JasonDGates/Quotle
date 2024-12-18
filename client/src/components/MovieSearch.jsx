@@ -45,7 +45,7 @@ export default function MovieSearch({ onMovieSelect }) {
   };
 
   return (
-    <div className="bg-[#d9d9d9] rounded-md w-full mt-4">
+    <div className="bg-[#d9d9d9] rounded-md w-full">
       <div className="relative">
         <TextField 
           fullWidth 
@@ -53,6 +53,14 @@ export default function MovieSearch({ onMovieSelect }) {
           label="" 
           placeholder="Search for a movie"
           value={searchTerm}
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              height: '40px',
+            },
+            '& .MuiOutlinedInput-input': {
+              padding: '8px 14px',
+            },
+          }}
           onChange={(e) => {
             setSearchTerm(e.target.value);
             setExactMatch(false);
