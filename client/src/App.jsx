@@ -8,6 +8,7 @@ import WinnerModal from "./components/WinnerModal.jsx";
 import getTodaysDate from "./helpers/getTodaysDate.js";
 import setLocalStorage from "../src/helpers/setLocalStorage.js"
 import GuessesBar from "./components/GuessesBar.jsx";
+import GuessButton from "./components/GuessButton.jsx";
 
 export default function App() {
 
@@ -24,6 +25,7 @@ export default function App() {
   const [quotesToShow, setQuotesToShow] = useState(gameData.numberOfGuesses);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [numberOfGuesses, setNumberOfGuesses] = useState(gameData.numberOfGuesses);
+  const [guessOutcome, setGuessOutcome] = useState(null);
 
   const dummyData = {
     id: "tt0838283",
@@ -58,9 +60,12 @@ export default function App() {
   const handleGuessMovie = () => {
     setNumberOfGuesses((prev) => prev + 1);
     setLocalStorage('numberOfGuesses', gameData.numberOfGuesses + 1, todaysDate());
-    if (selectedMovie.imdbID === dummyData.id)
+    if (selectedMovie.imdbID === dummyData.id){
       handleWinnerModal();
       setLocalStorage('correctGuess', true, todaysDate())
+    } else {
+      setGuessOutcome(false);
+    }
   }
   return (
     // Main container
@@ -87,11 +92,10 @@ export default function App() {
               // Add any other logic you need when a movie is selected
             }} 
           />
-        <button 
-          onClick={() => handleGuessMovie()} 
-          className={`${!selectedMovie ? 'bg-gray-700' : 'bg-[#00bf63]'} text-white p-2 rounded-md w-full mt-4`}
-          disabled={!selectedMovie}
-        >{!selectedMovie ? 'Select a Movie' : 'Guess!'}</button>
+          <GuessButton
+            onClick={() => handleGuessMovie()}
+            selectedMovie={selectedMovie}
+            guessOutcome={guessOutcome} />
         </div>
         {showWinnerModal && <WinnerModal onClose={() => setShowWinnerModal(false)} />}
       </div>
